@@ -1,2 +1,12 @@
+{-# LANGUAGE TemplateHaskell #-}
+
+import Test.Hspec
+import Test.QuickCheck
+
+import qualified Test.Internal.Patterns as TIP
+import qualified Test.Internal.Combinators as TIC
+
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main = hspec $ do
+    TIP.test
+    TIC.test
