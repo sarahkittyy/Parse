@@ -58,3 +58,7 @@ test = describe "Patterns" $ do
                 runParser number "23." `shouldBe` (Right "23")
                 runParser number "-.23" `shouldBe` (Right "-.23")
                 runParser number ".24" `shouldBe` (Right ".24")
+        describe "spacing" $ do
+            it "matches 1 or more whitespace characters" $ do
+                runParser spacing "   hello" `shouldBe` (Right "   ")
+                runParser spacing "hello" `shouldSatisfy` (isLeft) 

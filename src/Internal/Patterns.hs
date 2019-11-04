@@ -9,6 +9,7 @@ module Internal.Patterns
 , natural
 , integer
 , number
+, spacing
 ) where
     
 import Internal.Parser
@@ -68,3 +69,7 @@ number = do
         return $ pt:fract ) <|> pure "" 
     when (null whole && null decimal) $ failure "No valid number given."
     return $ sign ++ whole ++ decimal
+    
+-- | Matches any amount of whitespace
+spacing :: Parser String
+spacing = (many1 $ satisfy isSpace) <|> failure "Whitespace expected"
