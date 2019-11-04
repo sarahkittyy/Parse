@@ -6,6 +6,7 @@ module Internal.Patterns
 ) where
     
 import Internal.Parser
+import Internal.Combinators
 
 -- | Matches a single char
 item :: Parser Char
