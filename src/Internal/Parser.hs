@@ -2,7 +2,7 @@
 
 -- | Base parser logic and instancing
 module Internal.Parser
-( Parser
+( Parser(..)
 , parse
 , runParser
 , (<|>)
