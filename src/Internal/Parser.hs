@@ -4,7 +4,6 @@
 module Internal.Parser
 ( Parser(..)
 , Parseable
-, parse
 , runParser
 , parseData
 , (<|>)
