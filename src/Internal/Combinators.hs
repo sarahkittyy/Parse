@@ -7,6 +7,7 @@ module Internal.Combinators
 , optional
 , sepBy
 , sepBy1
+, peek
 ) where
     
 import Internal.Parser
@@ -46,3 +47,9 @@ between l r p = do
     m <- p
     r
     return m
+    
+-- | Applies parser p without consuming any input
+peek :: Parser a -> Parser a
+peek p = Parser $ \input -> case parse p input of
+                                Left err -> Left err
+                                Right (m, rest) -> Right (m, input)
