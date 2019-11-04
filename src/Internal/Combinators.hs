@@ -17,7 +17,7 @@ many = (<|> pure []) . many1
 
 -- | Matches 1 or more of a given parser
 many1 :: Parser a -> Parser [a]
-many1 p = (:) <$> p <*> many1 p
+many1 p = (:) <$> p <*> (many1 p <|> pure [])
 
 -- | Matches n of a given parser
 nOf :: Int -> Parser a -> Parser [a]
