@@ -3,8 +3,10 @@
 -- | Base parser logic and instancing
 module Internal.Parser
 ( Parser(..)
+, Parseable
 , parse
 , runParser
+, parseData
 , (<|>)
 , failure
 , mzero
@@ -20,6 +22,10 @@ data Parser a = Parser { parse :: String -> Either String (a, String) }
 -- | Runs a parser atop a string
 runParser :: Parser a -> String -> Either String a
 runParser p input = fst <$> parse p input
+
+-- | Tries to parse the parseable datatype with the given string
+parseData :: Parseable a => String -> Either String a
+parseData = runParser parser
 
 -- | Applies a function to the result of a parser.
 instance Functor Parser where
@@ -74,3 +80,7 @@ instance MonadPlus Parser where
     mplus :: Parser a -> Parser a -> Parser a
     mplus = (<|>)
     
+-- | Typeclass that data structures can inherit to become parseable
+class Parseable a where
+    -- | Defines a parser for the data type
+    parser :: Parser a
