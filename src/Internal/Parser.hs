@@ -3,7 +3,7 @@
 -- | Base parser logic and instancing
 module Internal.Parser
 ( Parser(..)
-, Parseable
+, Parseable(..)
 , runParser
 , parseData
 , (<|>)
