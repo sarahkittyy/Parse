@@ -19,7 +19,6 @@ license-file:   LICENSE.md
 build-type:     Simple
 extra-source-files:
     README.md
-    ChangeLog.md
 
 source-repository head
   type: git
@@ -42,6 +41,7 @@ test-suite Parse-test
   other-modules:
       Test.Parse.Patterns
       Test.Parse.Combinators
+      Test.Parse.Parser
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
