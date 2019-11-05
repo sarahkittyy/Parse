@@ -10,6 +10,7 @@ module Internal.Patterns
 , integer
 , number
 , spacing
+, parens
 ) where
     
 import Internal.Parser
@@ -73,3 +74,7 @@ number = do
 -- | Matches any amount of whitespace
 spacing :: Parser String
 spacing = (many1 $ satisfy isSpace) <|> failure "Whitespace expected"
+
+-- | Matches a parser inbetween parenthesis
+parens :: Parser a -> Parser a
+parens = between (char '(') (char ')')

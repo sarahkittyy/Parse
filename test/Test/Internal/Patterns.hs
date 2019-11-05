@@ -62,3 +62,9 @@ test = describe "Patterns" $ do
             it "matches 1 or more whitespace characters" $ do
                 runParser spacing "   hello" `shouldBe` (Right "   ")
                 runParser spacing "hello" `shouldSatisfy` (isLeft) 
+        describe "parens" $ do
+            it "matches text between parenthesis" $ do
+                runParser (parens item) "(f)" `shouldBe` (Right 'f')
+                runParser (parens item) "()" `shouldSatisfy` isLeft
+                runParser (parens (char 'c')) "(c)" `shouldBe` (Right 'c')
+                runParser (parens (string "hello")) "(hello" `shouldSatisfy` isLeft
