@@ -9,7 +9,7 @@ import Parse.Parser
 
 import Data.Either
     
-test :: SpecWith ()
+test :: Spec
 test = describe "Combinators" $ do
         describe "many" $ do
             it "matches 0 or more of a given parser" $ do

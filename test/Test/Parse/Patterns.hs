@@ -9,7 +9,7 @@ import Parse.Parser
 import Data.Either
 import Data.Char
     
-test :: SpecWith ()
+test :: Spec
 test = describe "Patterns" $ do
         describe "item" $ do
             it "retrieves a single character" $ do
