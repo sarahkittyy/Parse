@@ -52,3 +52,35 @@ test = describe "Combinators" $ do
                 runParser (peek (char 'c') >> item) "char" `shouldBe` (Right 'c')
                 runParser (peek (string "lmao") >> item) "lmao wtf" `shouldBe` (Right 'l')
                 runParser (peek (string "abc") >> char 'd') "dog" `shouldSatisfy` isLeft
+        describe "chainl" $ do
+            it "parses left-associative expressions with 0 or more terms" $ do
+                let addop = char '+' >> return (\x y -> x + y)
+                runParser (chainl (read <$> integer) addop 0) "1+2+3" `shouldBe` (Right 6)
+                let multop = char '*' >> return (*)
+                let op = addop <|> multop
+                runParser (chainl (read <$> integer) op 0) "1+2*4" `shouldBe` (Right 12)
+                runParser (chainl (read <$> integer) op 0) "" `shouldBe` (Right 0)
+        describe "chainl1" $ do
+            it "parser left-associative expressions with 1 or more terms" $ do
+                let addop = char '+' >> return (\x y -> x + y)
+                runParser (chainl1 (read <$> integer) addop) "1+2+3" `shouldBe` (Right 6)
+                let multop = char '*' >> return (*)
+                let op = addop <|> multop
+                runParser (chainl1 (read <$> integer) op) "1+2*4" `shouldBe` (Right 12)
+                runParser (chainl1 (read <$> integer) op) "" `shouldSatisfy` isLeft
+        describe "chainr" $ do
+            it "parses right-associative expressions with 0 or more terms" $ do
+                let addop = char '+' >> return (\x y -> x + y)
+                runParser (chainr (read <$> integer) addop 0) "1+2+3" `shouldBe` (Right 6)
+                let multop = char '*' >> return (*)
+                let op = addop <|> multop
+                runParser (chainr (read <$> integer) op 0) "1+2*4" `shouldBe` (Right 9)
+                runParser (chainr (read <$> integer) op 0) "" `shouldBe` (Right 0)
+        describe "chainr1" $ do
+            it "parses right-associative expressions with 1 or more terms" $ do
+                let addop = char '+' >> return (\x y -> x + y)
+                runParser (chainr1 (read <$> integer) addop) "4+2+3" `shouldBe` (Right 9)
+                let multop = char '*' >> return (*)
+                let op = addop <|> multop
+                runParser (chainr1 (read <$> integer) op) "1+2*4" `shouldBe` (Right 9)
+                runParser (chainr1 (read <$> integer) op) "" `shouldSatisfy` isLeft

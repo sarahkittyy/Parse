@@ -8,6 +8,10 @@ module Internal.Combinators
 , sepBy
 , sepBy1
 , peek
+, chainl
+, chainl1
+, chainr
+, chainr1
 ) where
     
 import Internal.Parser
@@ -53,3 +57,35 @@ peek :: Parser a -> Parser a
 peek p = Parser $ \input -> case parse p input of
                                 Left err -> Left err
                                 Right (m, rest) -> Right (m, input)
+
+-- | chainl1, but also takes in an optional return value if no parser matches are found.
+chainl :: Parser a -> Parser (a -> a -> a) -> a -> Parser a
+chainl p op alt = chainl1 p op <|> pure alt
+                                
+-- | Useful for arithmetic -- kinda like foldr, used for parsing left-associative expressions
+chainl1 :: Parser a -> Parser (a -> a -> a) -> Parser a
+chainl1 p op = do
+    a <- p
+    rest a
+    where
+        rest a = ( do
+            fn <- op
+            b <- p
+            rest (fn a b) )
+                <|> return a
+           
+-- | Like chainr1 but with a default alternative initial value in the case of no matches
+chainr :: Parser a -> Parser (a -> a -> a) -> a -> Parser a
+chainr p op alt = chainr1 p op <|> pure alt
+                
+-- | Parses [p] separated by Parser f that returns a binary function, which is applied as a foldl to all matches of p
+chainr1 :: Parser a -> Parser (a -> a -> a) -> Parser a
+chainr1 p op = do
+    a <- p
+    rest a
+    where
+        rest a = ( do
+            fn <- op
+            b <- do { a <- p; rest a }
+            return $ fn a b )
+                <|> return a
