@@ -3,10 +3,10 @@
 import Test.Hspec
 import Test.QuickCheck
 
-import qualified Test.Internal.Patterns as TIP
-import qualified Test.Internal.Combinators as TIC
+import qualified Test.Parse.Patterns as TPP
+import qualified Test.Parse.Combinators as TPC
 
 main :: IO ()
 main = hspec $ do
-    TIP.test
-    TIC.test
+    TPP.test
+    TPC.test

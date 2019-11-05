@@ -1,5 +1,5 @@
 -- | Defines parser combinators
-module Internal.Combinators
+module Parse.Combinators
 ( many
 , many1
 , between
@@ -14,7 +14,7 @@ module Internal.Combinators
 , chainr1
 ) where
     
-import Internal.Parser
+import Parse.Parser
 
 -- | Matches 0 or more of a given parser
 many :: Parser a -> Parser [a]

@@ -1,11 +1,11 @@
-module Test.Internal.Combinators where
+module Test.Parse.Combinators where
     
 import Test.Hspec
 import Test.QuickCheck
 
-import Internal.Patterns
-import Internal.Combinators
-import Internal.Parser
+import Parse.Patterns
+import Parse.Combinators
+import Parse.Parser
 
 import Data.Either
     

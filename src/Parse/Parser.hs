@@ -1,7 +1,7 @@
 {-# LANGUAGE InstanceSigs #-}
 
 -- | Base parser logic and instancing
-module Internal.Parser
+module Parse.Parser
 ( Parser(..)
 , Parseable(..)
 , runParser

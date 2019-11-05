@@ -1,5 +1,5 @@
 -- | Implements basic parser patterns
-module Internal.Patterns
+module Parse.Patterns
 ( item
 , satisfy
 , char
@@ -13,8 +13,8 @@ module Internal.Patterns
 , parens
 ) where
     
-import Internal.Parser
-import Internal.Combinators
+import Parse.Parser
+import Parse.Combinators
 import Data.Char
 import Control.Monad (when)
 

@@ -1,10 +1,10 @@
-module Test.Internal.Patterns where
+module Test.Parse.Patterns where
     
 import Test.Hspec
 import Test.QuickCheck
 
-import Internal.Patterns
-import Internal.Parser
+import Parse.Patterns
+import Parse.Parser
 
 import Data.Either
 import Data.Char

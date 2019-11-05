@@ -27,10 +27,9 @@ source-repository head
 
 library
   exposed-modules:
-      Parse
-      Internal.Parser
-      Internal.Patterns
-      Internal.Combinators
+      Parse.Parser
+      Parse.Patterns
+      Parse.Combinators
   hs-source-dirs:
       src
   build-depends:
@@ -41,8 +40,8 @@ test-suite Parse-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Test.Internal.Patterns
-      Test.Internal.Combinators
+      Test.Parse.Patterns
+      Test.Parse.Combinators
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
