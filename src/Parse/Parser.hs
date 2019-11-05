@@ -7,6 +7,7 @@ module Parse.Parser
 , runParser
 , parseData
 , (<|>)
+, (<>)
 , failure
 , mzero
 , mplus
@@ -79,6 +80,12 @@ instance MonadPlus Parser where
     mplus :: Parser a -> Parser a -> Parser a
     mplus = (<|>)
     
+-- | Concatenates the semigroup results of the two parsers
+instance Semigroup a => Semigroup (Parser a) where
+    (<>) :: Parser a -> Parser a -> Parser a
+    
+    (<>) = liftA2 (<>)
+
 -- | Typeclass that data structures can inherit to become parseable
 class Parseable a where
     -- | Defines a parser for the data type
