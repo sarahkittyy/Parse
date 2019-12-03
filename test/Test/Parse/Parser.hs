@@ -61,3 +61,9 @@ test = describe "Parser" $ do
                     `shouldBe` (Right "ab")
                 runParser (string "f" <> ((:[]) <$> item)) "frabc"
                     `shouldBe` (Right "fr")
+        describe "<?>" $ do
+            it "provides an alternate error message on failure" $ do
+                runParser (char 'c' <?> "no c found") "hi"
+                    `shouldBe` (Left "no c found")
+                runParser (char 'h' <?> "no h found") "hi"
+                    `shouldBe` (Right 'h')

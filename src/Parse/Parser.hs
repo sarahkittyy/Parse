@@ -8,6 +8,7 @@ module Parse.Parser
 , parseData
 , (<|>)
 , (<>)
+, (<?>)
 , failure
 , mzero
 , mplus
@@ -85,6 +86,10 @@ instance Semigroup a => Semigroup (Parser a) where
     (<>) :: Parser a -> Parser a -> Parser a
     
     (<>) = liftA2 (<>)
+    
+-- | Provides an alternate failure message when the parser fails
+(<?>) :: Parser a -> String -> Parser a
+(<?>) p = (p <|>) . failure
 
 -- | Typeclass that data structures can inherit to become parseable
 class Parseable a where
